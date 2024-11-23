@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="CA-3 TO-DO LIST.CSS">
+</head>
+<body>
+    <div id="p">
+        <h1 id="Welcome">Welcome, Congratulations on taking the first step!</h1>
+        <h1 id="Today">What are we doing Today 😊</h1>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <form action="CA-3 TO-DO LIST PERSONAL.HTML" id="myForm">
+        <div>
+            <button type="submit" onclick="changeAction('CA-3 TO-DO LIST PERSONAL.HTML')">Personal</button>
+            <button type="button" onclick="stayHere()">School</button>
+        </div>
+    </form>
+
+    <!-- Task Input and Submit Button -->
+    <div>
+        <input type="text" id="taskInput" placeholder="Enter your Task">
+        <button type="button" id="submitButton">Submit</button>  <!-- Changed to type "button" -->
+    </div>
+
+    <!-- To-Do List -->
+    <ul id="todoList"></ul> <!-- Add an unordered list to display tasks -->
+
+    <script>
+        // Function to handle page change for the form
+        function changeAction(page){
+            document.getElementById('myForm').action = page;
+            document.getElementById('myForm').submit();
+        }
+
+        // Function for staying on the current page
+        function stayHere(){
+            console.log("Let's start working!")
+        }
+
+        // References to DOM elements
+        const submitButton = document.getElementById('submitButton');
+        const todoList = document.getElementById('todoList');
+        const taskInput = document.getElementById('taskInput');
+
+        // Load tasks from localStorage when the page loads
+        window.onload = () => {
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            tasks.forEach(taskText => {
+                let li = document.createElement('li');
+                li.textContent = taskText;
+                li.onclick = () => { li.remove(); saveTasks(); };
+                todoList.appendChild(li);
+            });
+        };
+
+        // Add task and save to localStorage
+        submitButton.onclick = () => {
+            const taskText = taskInput.value;
+            if (taskText) {
+                let li = document.createElement('li');
+                li.textContent = taskText;
+                li.onclick = () => { li.remove(); saveTasks(); };
+                todoList.appendChild(li);
+                taskInput.value = ''; // Clear input field
+                saveTasks();
+            }
+        };
+
+        // Save tasks to localStorage
+        function saveTasks() {
+            const tasks = Array.from(todoList.getElementsByTagName('li')).map(li => li.textContent);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+    </script>
+</body>
+</html>

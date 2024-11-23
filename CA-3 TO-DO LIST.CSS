@@ -1,0 +1,25 @@
+#Today{
+    color:peru
+}
+*{
+    background-color: white;
+    text-align: center;
+    background-image: url(cloud.jpg);
+}
+button{
+    padding: 2px;
+    margin: 40px;
+    border-radius: 80%;
+    background-color: rgb(133, 133, 248);
+    color: rgb(52, 7, 249);
+}
+#p{
+    background-color: rgb(214, 210, 210);
+    margin-bottom: 20px;
+}
+#welcome{
+    background-color: coral;
+}
+#todoList{
+    text-align: center;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+
+    <!-- Input and Button for Adding Tasks -->
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button id="addTaskBtn">Add Task</button>
+
+    <!-- Unordered List to Display Tasks -->
+    <ul id="taskList"></ul>
+
+    <script>
+        // Get elements by their IDs
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const taskList = document.getElementById('taskList');
+
+        // When the Add Task button is clicked
+        addTaskBtn.onclick = function() {
+            const taskText = taskInput.value.trim();  // Get input text
+
+            if (taskText !== "") {  // Only add task if it's not empty
+                const taskItem = document.createElement('li');  // Create new task item
+                taskItem.textContent = taskText;  // Set task text
+
+                // Create a Delete button for the task
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+
+                // When the Delete button is clicked, remove the task
+                deleteBtn.onclick = function() {
+                    taskList.removeChild(taskItem);  // Remove task item from the list
+                };
+
+                // Create an Edit button for the task
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+
+                // When the Edit button is clicked, allow editing of the task
+                editBtn.onclick = function() {
+                    const newTaskText = prompt("Edit your task:", taskText); // Ask user to edit the task
+                    if (newTaskText !== null && newTaskText.trim() !== "") {
+                        taskItem.firstChild.textContent = newTaskText.trim();  // Update the task text
+                    }
+                };
+
+                // Add the Edit and Delete buttons to the task
+                taskItem.appendChild(editBtn);
+                taskItem.appendChild(deleteBtn);
+
+                // Add the task to the list
+                taskList.appendChild(taskItem);
+
+                // Clear the input field
+                taskInput.value = "";
+            }
+        };
+    </script>
+
+    <style>
+        *{
+            background-color: white;
+            text-align: center;
+            padding: 10px;
+            border: 100px;
+            
+        }
+        #taskInput, #Addtaskbtn{
+            border-color: aqua;
+        }
+    </style>
+
+</body>
+</html>
